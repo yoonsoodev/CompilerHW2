@@ -22,6 +22,7 @@ int nextid = 0;  //the current identifier
 int nextfree = 0;  //the next available index of ST
 HTpointer HT[HTsize];
 char ST[STsize];
+int STindex = 0;
 
 int hashcode;  //hash code of identifier
 int sameid;  //first index of identifier
@@ -134,7 +135,7 @@ void LookupHS(int nextid, int hashcode)
 {
     HTpointer here;
     int i, j;
-
+    STindex = nextid;
     found = FALSE;
     if (HT[hashcode] != NULL) {
         here = HT[hashcode];
@@ -188,7 +189,7 @@ void SymbolTable(){
 
     while (in != EOF) {
         error = noerror;
-        SkipSeperators();
+        SkipSeperators();//ST에 넣는 과정
         ReadID();
         if (error == noerror) {
             if (nextfree == STsize) {
@@ -197,7 +198,7 @@ void SymbolTable(){
             }
             ST[nextfree++] = '\0';
 
-            ComputeHS(nextid, nextfree);
+            ComputeHS(nextid, nextfree); //HT에 넣는 과정
             LookupHS(nextid, hashcode);
             if (!found) {
                 ADDHT(hashcode);
