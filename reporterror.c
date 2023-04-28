@@ -7,6 +7,7 @@
 
 #include "glob.h"
 
+extern char* yytext;
 /* ReportError    -     Print out error messages
             overst :  overflow in ST. print the hashtable and abort
             illid_digit    : illegal identifier (start with digit)
@@ -15,29 +16,21 @@
 
 void ReportError(ERRORtypes error){ //원본 symbol table 코드에서 PrintError 함수 부분 추출
     int index = nextid;//illid_illch에서 이용해줄 변수. switch문 안에 선언해두면 에러가 발생할 가능성이 있어서 switch문 바깥에 뺴둠.
-    
+
     switch (error) {
     case overst:
         nextfree = nextid;
-        printf("OVERFLOW\n");
+        printf("%22s\n","Overflow");
         exit(0);
         break;
     case illid_long:
-        printf("Too long identifier\n");
+        printf("%22s\n","Too long identifier\n");
         break;
     case illid_illch:
-        while (ST[index] != '\0') {
-            printf("%c", ST[index++]);
-        }
-        printf("illegal IDENT\n");
+        printf("%22s illegal IDENT\n", yytext);
         break;
     case illid_digit:
-        while (in != EOF && (isLetter(in) || isDigit(in))) {
-            in = *token;
-            printf("%c", in);
-            token++;
-        }
-        printf("illegal IDENT\n");
+        printf("%22s illegal IDENT\n", yytext);
         break;
     }
 }

@@ -5,8 +5,6 @@
 #include "glob.h"
 cLine = 1;
 %}
-letter				[a-zA-z_]
-digit				[0-9]
 
 %%
 "const"				return(TCONST);
@@ -17,8 +15,37 @@ digit				[0-9]
 "void"				return(TVOID);
 "while"				return(TWHILE);
 
+
+[0]|[1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?	return(TNUMBER);
+[0-9]+"."[0-9]+		return(TREALNUM);
+
+"/*"([^*]|\*+[^*/])*\**"*/"		{
+for(int i=0;i<yyleng;i++){
+	if(yytext[i]=='\n') cLine ++;}
+	}
+"//".*				;
+
+[a-zA-Z_][a-zA-z0-9_]*	{
+						if(yyleng > 12) {
+							error= illid_long;
+							return(TERROR);
+						}
+						else {
+							SymbolTable();
+							return(TIDENT);
+						}
+					}
+[0-9][a-zA-Z0-9_]*	{
+						error = illid_digit;
+						return(TERROR);;
+					}
+[a-zA-Z_][a-zA-Z0-9_]*([-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/@#]*)*[a-zA-Z0-9_]*  { error = illid_illch; return(TERROR);}
+
+
 "=="				return(TEQUAL);
 "!="				return(TNOTEQU);
+"<"					return(TLESS);
+">"					return(TGREAT);
 "<="				return(TLESSE);
 ">="				return(TGREATE);
 "&&"				return(TAND);
@@ -47,37 +74,6 @@ digit				[0-9]
 "]"					return(TSQBRR);
 ","					return(TCOMMA);
 ";"					return(TSEMICOLON);
-
-
-[1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?	return(TNUMBER);
-[0-9]+"."[0-9]+		return(TREALNUM);
-
-"/*"([^*]|\*+[^*/])*\**"*/"		{
-for(int i=0;i<yyleng;i++){
-	if(yytext[i]=='\n') cLine ++;}
-	}
-"//".*				;
-
-{letter}({letter}|{digit})*	{
-						if(yyleng > 12) {
-							error= illid_long;
-							return(TERROR);
-						}
-						else {
-							SymbolTable();
-							return(TIDENT);
-						}
-					}
-{digit}({letter}|{digit})+	{
-						error = illid_digit;
-						return(TERROR);;
-					}
-{letter}+[^A-Za-z0-9_ .,;:?!\t\n]+({letter}|{digit})* 	| 
-[^A-Za-z0-9_ .,;:?!\t\n]+({letter}|{digit})+  {
-									error = illid_illch;
-									return(TERROR);;
-								}
-
 
 "\n"			{cLine++; return(TCARR);}
 [ \t]				;

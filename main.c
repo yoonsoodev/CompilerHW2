@@ -22,6 +22,7 @@ void printtoken(enum tnumber tn){
         case TIDENT: printf("ident          "); break;
             
         case TNUMBER: printf("number         "); break;
+        case TREALNUM: printf("real number    "); break;
         
         case TCONST: printf("const          ");break;
         case TELSE: printf("else           "); break;
@@ -66,18 +67,21 @@ void printtoken(enum tnumber tn){
         case TERROR: printf("**Error**      ");break;
     }
     
+    if (tn == TERROR) {
+        ReportError(error);//에러메세지 출력하는 함수 호출
+        cErrors++;//error 개수 세기
+        return;
+    }
+
     /*print ST-index(identifier인 경우에만)*/
     if(tn = TIDENT){
-        printf("%-12d",STindex);//ST에서의 index를 symtable로부터 가져옴
+        printf("%-15d",STindex);//ST에서의 index를 symtable로부터 가져옴
     }
     /*print token*/
     printf("%-12s \n", yytext);
     
     /*print error(error가 있는 경우)*/
-    if(tn == TERROR){
-        ReportError(error);//에러메세지 출력하는 함수 호출
-        cErrors++;//error 개수 세기
-    }
+    
 }
 
 void main()
