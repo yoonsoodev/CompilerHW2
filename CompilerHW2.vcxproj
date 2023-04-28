@@ -24,6 +24,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="scanner.l" />
+    <None Include="testdata1.dat" />
+    <None Include="testdata2.dat" />
+    <None Include="testdata3.dat" />
+    <None Include="testdata4.dat" />
+    <None Include="testdata5.dat" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lex.yy.c" />

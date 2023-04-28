@@ -26,6 +26,21 @@
     <None Include="scanner.l">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="testdata1.dat">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="testdata2.dat">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="testdata3.dat">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="testdata4.dat">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="testdata5.dat">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lex.yy.c">

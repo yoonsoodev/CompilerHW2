@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "tn.h"
 #include "glob.h"
-cLine = 0;
+cLine = 1;
 %}
 letter				[a-zA-z_]
 digit				[0-9]
@@ -61,7 +61,7 @@ for(int i=0;i<yyleng;i++){
 {letter}({letter}|{digit})*	{
 						if(yyleng > 12) {
 							error= illid_long;
-							ReportError(error);
+							return(TERROR);
 						}
 						else {
 							SymbolTable();
@@ -70,18 +70,18 @@ for(int i=0;i<yyleng;i++){
 					}
 {digit}({letter}|{digit})+	{
 						error = illid_digit;
-						ReportError(error);
+						return(TERROR);;
 					}
 {letter}+[^A-Za-z0-9_ .,;:?!\t\n]+({letter}|{digit})* 	| 
 [^A-Za-z0-9_ .,;:?!\t\n]+({letter}|{digit})+  {
 									error = illid_illch;
-									ReportError(error);
+									return(TERROR);;
 								}
 
 
 "\n"			{cLine++; return(TCARR);}
 [ \t]				;
-.				{error= illid_illch; ReportError(error); return(TERROR);}	
+.				{error= illid_illch; return(TERROR);}	
 %%
 
 int yywrap()

@@ -572,7 +572,7 @@ char *yytext;
 #include <stdlib.h>
 #include "tn.h"
 #include "glob.h"
-cLine = 0;
+cLine = 1;
 #line 577 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
@@ -1009,7 +1009,7 @@ YY_RULE_SETUP
 {
 						if(yyleng > 12) {
 							error= illid_long;
-							ReportError(error);
+							return(TERROR);
 						}
 						else {
 							SymbolTable();
@@ -1022,7 +1022,7 @@ YY_RULE_SETUP
 #line 71 "scanner.l"
 {
 						error = illid_digit;
-						ReportError(error);
+						return(TERROR);;
 					}
 	YY_BREAK
 case 42:
@@ -1032,7 +1032,7 @@ YY_RULE_SETUP
 #line 76 "scanner.l"
 {
 									error = illid_illch;
-									ReportError(error);
+									return(TERROR);;
 								}
 	YY_BREAK
 case 44:
@@ -1048,7 +1048,7 @@ YY_RULE_SETUP
 case 46:
 YY_RULE_SETUP
 #line 84 "scanner.l"
-{error= illid_illch; ReportError(error); return(TERROR);}	
+{error= illid_illch; return(TERROR);}	
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
