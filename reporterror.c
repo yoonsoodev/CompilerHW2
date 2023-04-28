@@ -4,8 +4,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "glob.h"
+#include "error.h"
+
 
 /* ReportError    -     Print out error messages
             overst :  overflow in ST. print the hashtable and abort

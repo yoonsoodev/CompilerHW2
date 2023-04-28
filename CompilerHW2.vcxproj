@@ -19,17 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tn.h" />
-    <ClInclude Include="glob.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="scanner.l" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="lex.yy.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="reporterror.c" />
     <ClCompile Include="symtable.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="error.h" />
+    <ClInclude Include="glob.h" />
+    <ClInclude Include="tn.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="scanner.l" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -127,7 +128,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>

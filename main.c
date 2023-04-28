@@ -2,12 +2,15 @@
 //  Programmer : 배주연, 신윤수, 윤규빈, 조예은
 //  Date : 2023.04.25
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
 #include "glob.h"
+
 extern yylex();
-extern char *yytext;
+extern char *yytext; //읽어오는 결과
+extern void ReportError(ERRORtypes error);
 
 int cErrors = 0; //에러 개수를 세기 위한 변수
 
@@ -30,7 +33,7 @@ void printtoken(enum tnumber tn){
         case TRETURN: printf("return         "); break;
         case TVOID: printf("void           "); break;
         case TWHILE: printf("while          "); break;
-            
+        
         case TPLUS: printf("plus           "); break;
         case TMINUS: printf("minus          ");break;
         case TSTAR: printf("star           "); break;
@@ -68,8 +71,15 @@ void printtoken(enum tnumber tn){
     
     /*print ST-index(identifier인 경우에만)*/
     if(tn = TIDENT){
-        printf("%-12d",STindex);//ST에서의 index를 symtable로부터 가져옴
+        if (!found) {
+            printf("%-12d", nextid);
+        }
+        else {
+            printf("%-12d", sameid);
+        }
+        
     }
+
     /*print token*/
     printf("%-12s \n", yytext);
     
@@ -86,6 +96,7 @@ void main()
     printf("Line number    Token type     ST-index       Token               \n");//print head
     while  ((tn = yylex()) != TEOF) {
         printtoken(tn);
+        //symobltable에서 출력해야함
     }
     
     //error 개수 출력
