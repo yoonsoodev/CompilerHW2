@@ -40,12 +40,11 @@ for(int i=0;i<yyleng;i++){
 						error = illid_digit;
 						return(TERROR);
 					}
-[a-zA-Z_]+[^A-Za-z0-9_ .,;:?!\t\n]+[a-zA-Z0-9_]+ 	|
-[^A-Za-z0-9_ .,;:?!\t\n]+[a-zA-Z0-9_]+  {
-									error = illid_illch;
-									return(TERROR);
-								}
 
+[a-zA-Z_]+[^a-zA-Z0-9_ \t\n | a-zA-Z0-9_]+[a-zA-Z0-9_]+	{
+						error = illid_illch;
+						return(TERROR);
+					}	
 
 
 "=="				return(TEQUAL);
