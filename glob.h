@@ -22,6 +22,8 @@ ERRORtypes error;
 /*ST index 관련 변수*/
 extern int nextid;  //the current identifier
 extern int nextfree;  //the next available index of ST
+extern int sameid;
+extern int found;
 extern int STindex; // ST의 index를 나타내는 변수
 extern char ST[STsize];
 extern char* token; //pointer to token

@@ -74,12 +74,20 @@ void printtoken(enum tnumber tn){
     }
 
     /*print ST-index(identifier인 경우에만)*/
-    if(tn = TIDENT){
-        printf("%-15d",STindex);//ST에서의 index를 symtable로부터 가져옴
+    else if(tn == TIDENT){
+        if (!found) {
+            printf("%-15d", STindex);//ST에서의 index를 symtable로부터 가져옴
+            printf("%-12s       (entered) \n", yytext);
+        }
+        else {
+            printf("%-15d", sameid);
+            printf("%-12s       (already entered) \n", yytext);
+        }
+        return;
     }
-    /*print token*/
-    printf("%-12s \n", yytext);
-    
+    else {/*print token*/
+        printf("%16s \n", yytext);
+    }
     /*print error(error가 있는 경우)*/
     
 }

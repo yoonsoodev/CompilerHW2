@@ -20,17 +20,17 @@ void ReportError(ERRORtypes error){ //원본 symbol table 코드에서 PrintErro
     switch (error) {
     case overst:
         nextfree = nextid;
-        printf("%22s\n","Overflow");
+        printf("%23s\n","Overflow");
         exit(0);
         break;
     case illid_long:
-        printf("%22s\n","Too long identifier\n");
+        printf("%23s\n","Too long identifier\n");
         break;
     case illid_illch:
-        printf("%22s illegal IDENT\n", yytext);
+        printf("%23s illegal IDENT\n", yytext);
         break;
     case illid_digit:
-        printf("%22s illegal IDENT\n", yytext);
+        printf("%23s illegal IDENT\n", yytext);
         break;
     }
 }

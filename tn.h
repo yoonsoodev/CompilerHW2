@@ -29,9 +29,7 @@ enum tnumber {
     TCOMMA, //반점(,)
     TSEMICOLON, //세미클론(;)
     
-    /*New line*/
-    TCARR,
-
+   
     /*error*/
     TERROR    
 };
