@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "error.h"
+#include "glob.h"
 
 #define FALSE 0
 #define TRUE 1
@@ -19,6 +19,7 @@
 /*scanner에서 가져온 함수*/
 extern yylex();
 extern char *yytext; 
+extern yyleng;
 
 /*reporterror.c에서 가져온 함수*/
 extern void ReportError(ERRORtypes error);
@@ -44,30 +45,6 @@ int nextid=0; //the current identifier
 int nextfree=0;  //the next available index of ST
 int STindex; // ST의 index를 나타내는 변수
 char ST[STsize];
-char* token; //pointer to token
-char in;
-
-//Initialize - open input file
- void initialize()
-{
-    token = yytext;//현재 처리 중인 입력 텍스트에서 마지막으로 인식된 토큰을 token pointer로 가르킴
-    in = *token;//token의 가장 첫번째 문자를 input에 넣어줌
-}
-
-//isSerperator  -  distinguish the seperator
-//Returns 1 if seperator, otherwise returns 0
-
- int isSeperator(char in)
-{
-    int i;
-    int sep_len;
-    sep_len = strlen(seperators);
-    for (i = 0; i < sep_len; i++) {
-        if (in == seperators[i])
-            return 1;
-    }
-    return 0;
-}
 
 
 /*ReadIO     -     Read identifier from the input file the string table ST directly into
@@ -76,33 +53,14 @@ char in;
             If first letter is digit, print out error message. */
  void ReadID() // ST에 넣어줌
 {
-    int count = 0;
     nextid = nextfree;
     STindex = nextid; //ST의 index를 전역변수 STindex에 저장하여 main에서의 출력에 사용
-    while (in != EOF && !isSeperator(in)) {
+    for (int i = 0; i < yyleng; i++) {
         if (nextfree == STsize) {
             error = overst;
             ReportError(error);
         }
-        ST[nextfree++] = in;
-        token++;
-        in = *token;
-        count++;
-
-        if (!(isLetter(in) || isDigit(in) || isSeperator(in)) && in != EOF) {
-            error = illid_illch;
-        }
-    }
-    if (count >= MAX_LEN) {
-        error = illid_long;
-        ST[nextfree] = '\0';
-        ReportError(error);
-        nextfree = nextid;
-    }
-    if (error == illid_illch) {
-        ST[nextfree] = '\0';
-        ReportError(error);
-        nextfree = nextid;
+        ST[nextfree++] = yytext[i];
     }
 }
 
@@ -179,28 +137,22 @@ char in;
 */
  
  void SymbolTable(){ //HashTable에 넣는 과정 
-    int i;
-    initialize();
+    error = noerror;
+    ReadID();
+    if (error == noerror) {
+        if (nextfree == STsize) {
+            error = overst;
+            ReportError(error);
+        }
+        ST[nextfree++] = '\0';
 
-    while (in != EOF) { //
-        error = noerror;
-        SkipSeperators();
-        ReadID();
-        if (error == noerror) {
-            if (nextfree == STsize) {
-                error = overst;
-                ReportError(error);
-            }
-            ST[nextfree++] = '\0';
-
-            ComputeHS(nextid, nextfree);
-            LookupHS(nextid, hashcode);
-            if (!found) {
-                ADDHT(hashcode);
-            }
-            else {//same identifier already exsist
-                nextfree = nextid;
-            }
+        ComputeHS(nextid, nextfree);
+        LookupHS(nextid, hashcode);
+        if (!found) {
+            ADDHT(hashcode);
+        }
+        else {//same identifier already exsist
+            nextfree = nextid;
         }
     }
 }

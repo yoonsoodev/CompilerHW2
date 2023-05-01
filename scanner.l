@@ -14,10 +14,10 @@ cLine = 1;
 "return"			return(TRETURN);
 "void"				return(TVOID);
 "while"				return(TWHILE);
-[\n]				{cLine++;}
+"\n"				{cLine++;}
 [ \t]				;
 
-[0]|[1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?	return(TNUMBER);
+0|[1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?	return(TNUMBER);
 [0-9]+"."[0-9]+		return(TREALNUM);
 
 "/*"([^*]|\*+[^*/])*\**"*/"		{
@@ -38,8 +38,15 @@ for(int i=0;i<yyleng;i++){
 					}
 [0-9][a-zA-Z0-9_]*	{
 						error = illid_digit;
-						return(TERROR);;
+						return(TERROR);
 					}
+[a-zA-Z_]+[^A-Za-z0-9_ .,;:?!\t\n]+[a-zA-Z0-9_]+ 	|
+[^A-Za-z0-9_ .,;:?!\t\n]+[a-zA-Z0-9_]+  {
+									error = illid_illch;
+									return(TERROR);
+								}
+
+
 
 "=="				return(TEQUAL);
 "!="				return(TNOTEQU);
