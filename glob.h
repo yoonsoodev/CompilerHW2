@@ -11,7 +11,7 @@
 #define isDigit(x) ( (x) >= '0' && (x) <= '9' )
 #define MAX_LEN        12
 
-#define STsize 10  //size of string table
+#define STsize 100  //size of string table
 #define HTsize 100    //size of hash table
 
 /*error type*/
