@@ -86,13 +86,13 @@ void printtoken(enum tnumber tn){
         return;
     }
     else {/*print token*/
-        printf("%16s \n", yytext);
+        printf("               %-12s \n", yytext);
     }
     /*print error(error가 있는 경우)*/
     
 }
 
-void main()
+int main()
 {
     enum tnumber tn;  // token number
     printf("Line number    Token type     ST-index       Token               \n");//print head
@@ -107,4 +107,5 @@ void main()
     else{
         printf("%d errors detected", cErrors);
     }
+    return 0;
 }
