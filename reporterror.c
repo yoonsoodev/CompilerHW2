@@ -24,13 +24,13 @@ void ReportError(ERRORtypes error){ //원본 symbol table 코드에서 PrintErro
         exit(0);
         break;
     case illid_long:
-        printf("               %-20s\n","Too long identifier\n");
+        printf("               %-20s\n","Too long identifier");
         break;
     case illid_illch:
-        printf("               %-20s illegal IDENT\n", yytext);
+        printf("               %-20sillegal IDENT\n", yytext);
         break;
     case illid_digit:
-        printf("               %-20s illegal IDENT\n", yytext);
+        printf("               %-20sillegal IDENT\n", yytext);
         break;
     }
 }
