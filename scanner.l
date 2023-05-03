@@ -9,6 +9,7 @@ cLine = 1;
 %}
 
 %%
+
 "const"				return(TCONST);
 "else"				return(TELSE);
 "if"				return(TIF);
@@ -16,6 +17,7 @@ cLine = 1;
 "return"			return(TRETURN);
 "void"				return(TVOID);
 "while"				return(TWHILE);
+
 "\n"				{cLine++;}
 [ \t]				;
 
@@ -43,11 +45,10 @@ for(int i=0;i<yyleng;i++){
 						return(TERROR);
 					}
 
-[a-zA-Z_]+[^a-zA-Z0-9_ .,;:?!\t\n(){}[\]=!<>&|+\-\*\/%]+[a-zA-Z0-9_]+	{
+[a-zA-Z_]*[^a-zA-Z0-9_ .,;:?!\t\n(){}[\]=!<>&|+\-\*\/%]+[a-zA-Z0-9_]*[^a-zA-Z0-9_ .,;:?!\t\n(){}[\]=!<>&|+\-\*\/%]*	{
 						error = illid_illch;
 						return(TERROR);
-					}	
-
+					}
 
 "=="				return(TEQUAL);
 "!="				return(TNOTEQU);
@@ -71,7 +72,6 @@ for(int i=0;i<yyleng;i++){
 "%"					return(TMOD);
 "!"					return(TNOT);
 "="					return(TASSIGN);
-
 
 "("					return(TPL);
 ")"					return(TPR);

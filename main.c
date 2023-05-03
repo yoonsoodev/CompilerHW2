@@ -92,6 +92,7 @@ void printtoken(enum tnumber tn){
     
 }
 
+//token 인식 및 출력(ident인 경우 ST에 삽입)
 int main()
 {
     enum tnumber tn;  // token number
