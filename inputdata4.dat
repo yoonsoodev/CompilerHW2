@@ -1,0 +1,7 @@
+int main() {
+  char str[100];
+  gets(str);
+
+  printf(str);
+  return 0;
+}

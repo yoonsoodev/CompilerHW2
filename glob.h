@@ -1,5 +1,5 @@
 //  compiler_HW2
-//  Programmer : ¹èÁÖ¿¬, ½ÅÀ±¼ö, À±±Ôºó, Á¶¿¹Àº
+//  Programmer : ë°°ì£¼ì—°, ì‹ ìœ¤ìˆ˜, ìœ¤ê·œë¹ˆ, ì¡°ì˜ˆì€
 //  Date : 2023.04.25
 
 #ifndef symtable_h
@@ -19,12 +19,12 @@ enum errorTypes { noerror, illid_digit, illid_long, illid_illch, overst };
 typedef enum errorTypes ERRORtypes;
 ERRORtypes error;
 
-/*ST index °ü·Ã º¯¼ö*/
+/*ST index*/
 extern int nextid;  //the current identifier
 extern int nextfree;  //the next available index of ST
 extern int sameid;
 extern int found;
-extern int STindex; // STÀÇ index¸¦ ³ªÅ¸³»´Â º¯¼ö
+extern int STindex; // STï¿½ï¿½ indexï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 extern char ST[STsize];
 extern char* token; //pointer to token
 extern char in;
@@ -41,8 +41,6 @@ void ComputeHS(int nid, int nfree);
 void LookupHS(int nid, int hscode);
 void ADDHT(int hscode);
 void SymbolTable();
-
-/*symtable.c¿Í reporterror.c¿¡¼­ °øÅëÀûÀ¸·Î »ç¿ëÇÒ º¯¼ö*/
 
 #endif /* symtable_h */
 
