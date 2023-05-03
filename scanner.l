@@ -1,3 +1,5 @@
+%option case-insensitive
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
