@@ -14,7 +14,8 @@ extern char* yytext;
             illid_long    : illegal identifier (too long identifier)
             illid_illch    : illegal identifier (containing illegal characters) */
 
-void ReportError(ERRORtypes error){ //원본 symbol table 코드에서 PrintError 함수 부분 추출
+//원본 symbol table 코드에서 PrintError 함수 부분 추출, 에러타입에 따라 에러 메세지를 출력하는 함수
+void ReportError(ERRORtypes error){
     int index = nextid;//illid_illch에서 이용해줄 변수. switch문 안에 선언해두면 에러가 발생할 가능성이 있어서 switch문 바깥에 뺴둠.
 
     switch (error) {
@@ -24,13 +25,13 @@ void ReportError(ERRORtypes error){ //원본 symbol table 코드에서 PrintErro
         exit(0);
         break;
     case illid_long:
-        printf("               %-20s\n","Too long identifier\n");
+        printf("               %-20s\n","Too long identifier");
         break;
     case illid_illch:
-        printf("               %-20s illegal IDENT\n", yytext);
+        printf("               %-20sillegal IDENT\n", yytext);
         break;
     case illid_digit:
-        printf("               %-20s illegal IDENT\n", yytext);
+        printf("               %-20sillegal IDENT\n", yytext);
         break;
     }
 }

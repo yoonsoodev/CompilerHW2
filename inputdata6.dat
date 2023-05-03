@@ -1,0 +1,16 @@
+/*include <stdio.h>*/
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+int main() {
+    int a = 35, b = 21;
+    printf(gcd(%d, %d) = ,,, a, b, gcd(a, b));
+    return 0;
+}

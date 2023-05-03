@@ -1,0 +1,9 @@
+int main(){
+    int a,b,c;
+
+    printf("Enter a: ");
+    scanf("%d",&a);
+
+    c=a
+    return 0;
+}
