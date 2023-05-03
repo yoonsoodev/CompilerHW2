@@ -67,6 +67,7 @@ void printtoken(enum tnumber tn){
         case TERROR: printf("**Error**      ");break;
     }
     
+    /*print error(error가 있는 경우)*/
     if (tn == TERROR) {
         ReportError(error);//에러메세지 출력하는 함수 호출
         cErrors++;//error 개수 세기
@@ -88,8 +89,6 @@ void printtoken(enum tnumber tn){
     else {/*print token*/
         printf("               %-12s \n", yytext);
     }
-    /*print error(error가 있는 경우)*/
-    
 }
 
 //token 인식 및 출력(ident인 경우 ST에 삽입)
